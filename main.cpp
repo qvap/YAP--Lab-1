@@ -1,6 +1,8 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <locale>
+#include <windows.h>
 
 using namespace std;
 
@@ -109,6 +111,10 @@ void bogoSort(int numbers[], int array_size){
 }
 
 int main() {
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+    setlocale(LC_ALL, ".UTF8");
+
     int numbers[] = {1, 8, 9, 7, 4, 5, 3, 2, 6};
     int array_size = sizeof(numbers) / sizeof(numbers[0]);
     char choice = 'N';
