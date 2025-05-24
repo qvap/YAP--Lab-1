@@ -27,6 +27,8 @@ void printArray(int numbers[], int array_size, int highlight1 = -1, int highligh
 
 // Алгоритмы
 
+
+// Bubble Sort
 void bubbleSort(int numbers[], int array_size){
     for (int step = 0; step < array_size - 1; step++){
         for(int next_step = 0; next_step < array_size - step - 1; next_step++){
@@ -42,6 +44,7 @@ void bubbleSort(int numbers[], int array_size){
     printArray(numbers, array_size, -1, -1, true);
 }
 
+// Shell Sort
 void shellSort(int numbers[], int array_size){
     for (int gap = array_size / 2; gap > 0; gap /= 2){
         for (int i = gap; i < array_size; i++){
@@ -66,6 +69,7 @@ void shellSort(int numbers[], int array_size){
     printArray(numbers, array_size, -1, -1, true);
 }
 
+// Selection Sort
 void selectionSort(int numbers[], int array_size){
     for (int step = 0; step < array_size - 1; step++){
         int min_idx = step;
@@ -85,6 +89,7 @@ void selectionSort(int numbers[], int array_size){
     printArray(numbers, array_size, -1, -1, true);
 }
 
+// Bogo Sort
 void bogoSort(int numbers[], int array_size){
     while (true){
         bool sorted = true;

@@ -1,2 +1,6 @@
 cmake-build-*
 .idea/
+*.exe
+*.tmp
+.vscode/
+~*.docx
