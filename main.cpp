@@ -3,12 +3,13 @@
 #include <chrono>
 #include <locale>
 #include <windows.h>
+#include <random>
 
 using namespace std;
 
 // Вывод в терминал
 void printArray(int numbers[], int array_size, int highlight1 = -1, int highlight2 = -1, bool sorted = false, bool swapped = false){
-    cout << "\33[2K\r"; // Очищает строку
+    cout << endl;
     for (int i = 0; i < array_size; ++i) {
         if (i == highlight1 || i == highlight2){
             if (swapped){
@@ -104,13 +105,14 @@ void bogoSort(int numbers[], int array_size){
             break;
         }
 
-        for (int i = 0; i < array_size; i++){
-            int random_index = rand() % array_size;
-            printArray(numbers, array_size, i, random_index);
-            int temp = numbers[i];
-            numbers[i] = numbers[random_index];
-            numbers[random_index] = temp;
-            printArray(numbers, array_size, i, random_index, false, true);
+        int random_index = rand() % array_size;
+        int another_random_index = rand() % array_size;
+        printArray(numbers, array_size, random_index, another_random_index);
+        if ((numbers[random_index] > numbers[another_random_index]) && (random_index < another_random_index)) {
+            int temp = numbers[random_index];
+            numbers[random_index] = numbers[another_random_index];
+            numbers[another_random_index] = temp;
+            printArray(numbers, array_size, random_index, another_random_index, false, true);
         }
     }
 }
@@ -120,7 +122,14 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     setlocale(LC_ALL, ".UTF8");
 
-    int numbers[] = {1, 8, 9, 7, 4, 5, 3, 2, 6};
+    int numbers[9];
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dist(0, 100);
+    for (int & number : numbers) {
+        number = dist(gen);
+    }
+
     int array_size = sizeof(numbers) / sizeof(numbers[0]);
     char choice = 'N';
 
@@ -134,12 +143,12 @@ int main() {
         for (int i = 0; i < array_size; i++){
             cin >> numbers[i];
         }
-        cout << "Введённый массив: [ ";
-        for (int i = 0; i < array_size; i++){
-            cout << numbers[i] << " ";
-        }
-        cout << "]" << endl;
     }
+    cout << "Введённый массив: [ ";
+    for (int i = 0; i < array_size; i++){
+        cout << numbers[i] << " ";
+    }
+    cout << "]" << endl;
 
     choice = '0';
 
@@ -166,5 +175,6 @@ int main() {
             cout << "Неверный выбор. Используется Bubble Sort по умолчанию." << endl;
             bubbleSort(numbers, array_size);
     }
+    system("pause");
     return 0;
 }
